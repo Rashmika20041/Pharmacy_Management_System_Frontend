@@ -1,0 +1,82 @@
+.product-layer {
+  border: 1px solid #e0e0e0;
+  border-radius: 15px;
+  background: #fff;
+  padding: 20px 16px 16px 16px;
+  margin: 20px;
+  width: 240px;
+  max-height: 450px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s;
+  border: 2px solid rgba(13, 130, 255, 0.2);
+  
+}
+
+.product-layer:hover {
+  box-shadow: 0 8px 24px rgba(0, 123, 255, 0.12);
+}
+
+.product-image {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #f0f0f0;
+}
+
+.product-description {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+  min-height: 40px;
+}
+
+.product-price {
+  font-size: 19px;
+  color: #007bff;
+  font-weight: bold;
+  margin-bottom: 14px;
+}
+
+.product-buttons {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+}
+
+.product-buttons button {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.product-buttons button:first-child {
+  background: #f8f9fa;
+  color: #007bff;
+  border: 1px solid #007bff;
+  font-size: 13px;
+}
+
+.product-buttons button:first-child:hover {
+  background: #007bff;
+  color: #fff;
+}
+
+.product-buttons button:last-child {
+  background: #28a745;
+  color: #fff;
+  font-size: 13px;
+}
+
+.product-buttons button:last-child:hover {
+  background: #145f6a;
+}

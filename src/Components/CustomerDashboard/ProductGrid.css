@@ -1,0 +1,10 @@
+.product-grid {
+  display: grid;
+  gap: 18px;
+  justify-content: center;
+  margin: 36px auto;
+  max-width: 1200px;
+  min-height: 60vh;
+  grid-template-columns: 2fr 2fr 2fr 2fr;
+  
+}

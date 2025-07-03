@@ -1,7 +1,22 @@
 
+
+.login-layout{
+  min-height: 100vh;       
+  width: 100vw;            
+  background-image: url('../Assets/backgroundLoging.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
 .login-wrapper {
   width: 420px;
-  height: 480px;
+  height: 500px;
   background: transparent;
   border: 2px solid rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(2px);
@@ -29,6 +44,13 @@
     font-weight: 500;
 }
 
+.login-wrapper .login-error {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
 .login-wrapper .login-input-box {
     position: relative;
     width: 100%;
@@ -50,6 +72,19 @@
 
 .login-input-box input::placeholder {
   color: #000000;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #000000;
+  z-index: 2;
+}
+
+.login-input-box{
+  position: relative;
 }
 
 .login-input-box .icon {

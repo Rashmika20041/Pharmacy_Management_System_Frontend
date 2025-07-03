@@ -1,0 +1,133 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  padding: 0 52px;
+  height: 80px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07), 0 1.5px 4px rgba(0,0,0,0.03);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.company-logo {
+  height: 58px;
+  width: auto;
+  object-fit: contain;
+}
+
+.navbar-search {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+  margin: 0 36px;
+  max-width: 600px;
+  height: 39px;
+  margin-left: 170px;
+}
+
+.navbar-search-input {
+  width: 400px;
+  padding: 9px 14px;
+  border: 1px solid #d0d0d0;
+  border-radius: 24px 0 0 24px;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.2s;
+  background: #fafafa;
+}
+
+.navbar-search-input:focus {
+  border-color: #007bff;
+  background: #fff;
+}
+
+.navbar-search-btn {
+  padding: 9px 20px;
+  border: none;
+  background: #007bff;
+  color: #fff;
+  border-radius: 0 24px 24px 0;
+  font-size: 16px;
+  font-weight: 500;
+  height: 38px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.navbar-search-btn:hover {
+  background: #145f6a;
+  color: #fff;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.navbar-profile-photo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  cursor: pointer;
+  transition: border 0.2s;
+}
+.navbar-profile-photo:hover {
+  border: 2px solid #145f6a;
+}
+
+.navbar-logout-icon {
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+  font-size: 50px;
+}
+.navbar-logout-icon:hover {
+  color: #d9534f;
+}
+
+.logout-icon{
+  font-size: 31px;
+  margin-top: 13px;
+  cursor: pointer;
+  transition: color 0.18s;
+}
+
+.navbar-cart-icon {
+  font-size: 31px;
+  margin-top: 11px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: color 0.18s;
+}
+.navbar-cart-icon:hover {
+  color: #145f6a;
+}
+
+.navbar-orders-btn {
+  padding: 8px 18px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 22px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: background 0.2s;
+}
+.navbar-orders-btn:hover {
+  background: #145f6a;
+}

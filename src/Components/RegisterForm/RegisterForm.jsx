@@ -1,6 +1,7 @@
 import "./RegisterForm.css";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { GiMedicines } from "react-icons/gi";
 
 const RegisterForm = () => {
@@ -14,6 +15,7 @@ const RegisterForm = () => {
     password: "",
   });
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -46,6 +48,7 @@ const RegisterForm = () => {
     }
   };
   return (
+    <div className="register-layout">
     <div className='register-wrapper'>
       <form onSubmit={handleSubmit}>
         <GiMedicines className='register-top-icon' />
@@ -67,10 +70,25 @@ const RegisterForm = () => {
           <input type="text" placeholder="Mobile Number" value={form.mobileNumber} onChange={handleChange} name="mobileNumber" required />
         </div>
         <div className="register-input-box">
-          <input type="text" placeholder="Username" value={form.username} onChange={handleChange} name="userName" required />
+          <input type="text" placeholder="Username" value={form.userName} onChange={handleChange} name="userName" required />
         </div>
         <div className="register-input-box">
-          <input type="password" placeholder="Password" value={form.password} onChange={handleChange} name="password" required />
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            name="password"
+            required
+          />
+          <span
+            className="password-toggle-register"
+            onClick={() => setShowPassword((prev) => !prev)}
+            title={showPassword ? "Hide password" : "Show password"}
+            style={{ cursor: "pointer", marginLeft: "8px" }}
+          >
+            {showPassword ? <FaEye className="icon" /> : <FaEyeSlash className="icon" />}
+          </span>
         </div>
         {error && <div className="register-error">{error}</div>}
         <button type='submit'>Register</button>
@@ -81,6 +99,7 @@ const RegisterForm = () => {
             </p>
         </div>
       </form>
+    </div>
     </div>
   );
 };
