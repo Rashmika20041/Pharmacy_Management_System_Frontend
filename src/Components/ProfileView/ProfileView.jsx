@@ -1,24 +1,22 @@
 import "./ProfileView.css";
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useProfile } from "../CustomerDashboard/ProfileContext";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoArrowBackCircleOutline, IoArrowBackCircle } from "react-icons/io5";
 
 const ProfileView = () => {
-  const { profileImage, updateProfileImage } = useProfile();
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showSuccess, setShowSuccess] = useState(false);
   const [isBackHovered, setIsBackHovered] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
-
     fetch("http://localhost:8083/api/pharmacy/user/profile", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -28,20 +26,44 @@ const ProfileView = () => {
       .then((data) => {
         setUser(data);
         setLoading(false);
+      })
+      .catch(() => {
+        setError("Failed to load profile.");
+        setLoading(false);
       });
   }, [navigate]);
 
   const handleImageClick = () => fileInputRef.current.click();
 
-  const handleFileChange = (e) => {
+  // Cloudinary upload
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        updateProfileImage(e.target.result);
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+    setUploading(true);
+    setError(null);
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "Image_Upload"); // Your Cloudinary preset
+    data.append("cloud_name", "dtatrdtvo"); // Your Cloudinary cloud name
+
+    try {
+      const res = await fetch("https://api.cloudinary.com/v1_1/dtatrdtvo/image/upload", {
+        method: "POST",
+        body: data,
+      });
+      const uploadResult = await res.json();
+      if (uploadResult.secure_url) {
+        setUser((prev) => ({
+          ...prev,
+          imgUrl: uploadResult.secure_url,
+        }));
+      } else {
+        setError("Image upload failed.");
+      }
+    } catch (err) {
+      setError("Image upload failed.");
     }
+    setUploading(false);
   };
 
   const handleChange = (e) => {
@@ -49,20 +71,15 @@ const ProfileView = () => {
   };
 
   const handleSave = () => {
+    setError(null);
     fetch("http://localhost:8083/api/pharmacy/user/profile", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...user,
-        imgUrl: profileImage,
-      }),
+      body: JSON.stringify(user),
     })
       .then((res) => res.json())
       .then((data) => {
         setUser(data);
-        updateProfileImage(
-          data.imgUrl || "https://randomuser.me/api/portraits/women/44.jpg"
-        );
         setLoading(false);
         setShowSuccess(true);
         setTimeout(() => setShowSuccess(false), 2000);
@@ -104,11 +121,11 @@ const ProfileView = () => {
               <div className="profile-left">
                 <img
                   className="profile-picture"
-                  src={profileImage}
+                  src={user.imgUrl || "https://ui-avatars.com/api/?name=User&background=random&color=fff"}
                   alt="User"
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: uploading ? "wait" : "pointer", opacity: uploading ? 0.5 : 1 }}
                   onClick={handleImageClick}
-                  title="Click to change profile picture"
+                  title={uploading ? "Uploading..." : "Click to change profile picture"}
                 />
                 <input
                   type="file"
@@ -116,13 +133,14 @@ const ProfileView = () => {
                   style={{ display: "none" }}
                   ref={fileInputRef}
                   onChange={handleFileChange}
+                  disabled={uploading}
                 />
-
+                {uploading && <div style={{ color: "#888", fontSize: 12, }}>Uploading...</div>}
                 <div className="profile-name">
-                  <h2>{user.name || user.name}</h2>
+                  <h2>{user.name || user.userName || "User"}</h2>
                 </div>
               </div>
-              <button className="save-btn" onClick={handleSave}>
+              <button className="save-btn" onClick={handleSave} disabled={uploading}>
                 Save changes
               </button>
             </div>
@@ -153,7 +171,7 @@ const ProfileView = () => {
                 <label className="label">Mobile number</label>
                 <input
                   type="text"
-                  name="mobile"
+                  name="mobileNumber"
                   value={user.mobileNumber || ""}
                   onChange={handleChange}
                 />
@@ -171,7 +189,7 @@ const ProfileView = () => {
                 <label className="label">Username</label>
                 <input
                   type="text"
-                  name="username"
+                  name="userName"
                   value={user.userName || ""}
                   onChange={handleChange}
                 />

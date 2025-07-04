@@ -113,6 +113,8 @@
   right: 120px;
   transform: translateY(-50%);
   font-size: 20px;
+  user-select: none;
+  cursor: pointer;
 }
 
 .save-btn:hover {
