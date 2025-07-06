@@ -1,8 +1,7 @@
 import Product from "./Product";
 import "./ProductGrid.css";
 
-
-const ProductGrid = ({ products = [], onAddToCart, onBuyNow }) => {
+const ProductGrid = ({ products = [], onAddToCart, onBuyNow, userId }) => {
   const safeProducts = Array.isArray(products) ? products : [];
 
   if (safeProducts.length === 0) {
@@ -11,10 +10,11 @@ const ProductGrid = ({ products = [], onAddToCart, onBuyNow }) => {
 
   return (
     <div className="product-grid">
-      {safeProducts.map(product => (
+      {safeProducts.map((product) => (
         <Product
-          key={product.id || product.productId}
+          key={product.id}
           product={product}
+          userId={userId}
           onAddToCart={onAddToCart}
           onBuyNow={onBuyNow}
         />

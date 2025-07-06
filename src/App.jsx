@@ -2,6 +2,7 @@ import UserLoginForm from "./Components/LoginForm/UserLoginForm";
 import AdminLoginForm from "./Components/LoginForm/AdminLoginForm";
 import RegisterForm from "./Components/RegisterForm/RegisterForm";
 import ProfileView from "./Components/ProfileView/ProfileView";
+import CartForm from "./Components/CartForm/CartForm";
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,6 +14,12 @@ import NavigationBar from "./Components/CustomerDashboard/NavigationBar";
 import ProductGrid from "./Components/CustomerDashboard/ProductGrid";
 import Dashboard from "./Components/CustomerDashboard/Dashboard";
 import SearchResults from "./Components/CustomerDashboard/SearchResults";
+import { AuthProvider } from "./context/AuthProvider";
+import ProtectedRoute from "./Components/LoginForm/ProtectedRoute";
+
+<AuthProvider>
+  <App />
+</AuthProvider>;
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -20,28 +27,51 @@ function App() {
   const handleBuyNow = (product) => alert(`Buying ${product.name} now!`);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/user" element={<UserLoginForm />} />
-        <Route path="/admin" element={<AdminLoginForm />} />
-        <Route path="/register" element={<RegisterForm />} />
-        <Route path="/search" element={<SearchResults />} />
-        <Route
-          path="/userDashboard"
-          element={
-            <Dashboard>
-              <NavigationBar />
-              <ProductGrid
-                onAddToCart={handleAddToCart}
-                onBuyNow={handleBuyNow}
-              />
-            </Dashboard>
-          }
-        />
-        <Route path="/profile" element={<ProfileView />} />
-        <Route path="*" element={<Navigate to="/user" replace={true} />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/user" element={<UserLoginForm />} />
+          <Route path="/admin" element={<AdminLoginForm />} />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route
+            path="/search"
+            element={
+              <ProtectedRoute>
+                <SearchResults />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/userDashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard>
+                  <NavigationBar />
+                  <ProductGrid
+                    onAddToCart={handleAddToCart}
+                    onBuyNow={handleBuyNow}
+                  />
+                </Dashboard>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfileView />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/cart" element={
+            <ProtectedRoute>
+              <CartForm />
+            </ProtectedRoute>
+          } />
+          <Route path="*" element={<Navigate to="/user" replace={true} />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

@@ -17,6 +17,7 @@ const ProfileView = () => {
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
+
     fetch("http://localhost:8083/api/pharmacy/user/profile", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -35,7 +36,6 @@ const ProfileView = () => {
 
   const handleImageClick = () => fileInputRef.current.click();
 
-  // Cloudinary upload
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -43,14 +43,17 @@ const ProfileView = () => {
     setError(null);
     const data = new FormData();
     data.append("file", file);
-    data.append("upload_preset", "Image_Upload"); // Your Cloudinary preset
-    data.append("cloud_name", "dtatrdtvo"); // Your Cloudinary cloud name
+    data.append("upload_preset", "Image_Upload");
+    data.append("cloud_name", "dtatrdtvo");
 
     try {
-      const res = await fetch("https://api.cloudinary.com/v1_1/dtatrdtvo/image/upload", {
-        method: "POST",
-        body: data,
-      });
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dtatrdtvo/image/upload",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
       const uploadResult = await res.json();
       if (uploadResult.secure_url) {
         setUser((prev) => ({
@@ -121,11 +124,21 @@ const ProfileView = () => {
               <div className="profile-left">
                 <img
                   className="profile-picture"
-                  src={user.imgUrl || "https://ui-avatars.com/api/?name=User&background=random&color=fff"}
+                  src={
+                    user.imgUrl ||
+                    "https://ui-avatars.com/api/?name=User&background=random&color=fff"
+                  }
                   alt="User"
-                  style={{ cursor: uploading ? "wait" : "pointer", opacity: uploading ? 0.5 : 1 }}
+                  style={{
+                    cursor: uploading ? "wait" : "pointer",
+                    opacity: uploading ? 0.5 : 1,
+                  }}
                   onClick={handleImageClick}
-                  title={uploading ? "Uploading..." : "Click to change profile picture"}
+                  title={
+                    uploading
+                      ? "Uploading..."
+                      : "Click to change profile picture"
+                  }
                 />
                 <input
                   type="file"
@@ -135,12 +148,20 @@ const ProfileView = () => {
                   onChange={handleFileChange}
                   disabled={uploading}
                 />
-                {uploading && <div style={{ color: "#888", fontSize: 12, }}>Uploading...</div>}
+                {uploading && (
+                  <div style={{ color: "#888", fontSize: 12 }}>
+                    Uploading...
+                  </div>
+                )}
                 <div className="profile-name">
                   <h2>{user.name || user.userName || "User"}</h2>
                 </div>
               </div>
-              <button className="save-btn" onClick={handleSave} disabled={uploading}>
+              <button
+                className="save-btn"
+                onClick={handleSave}
+                disabled={uploading}
+              >
                 Save changes
               </button>
             </div>

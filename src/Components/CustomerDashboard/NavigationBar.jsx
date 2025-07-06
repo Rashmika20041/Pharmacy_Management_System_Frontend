@@ -5,7 +5,7 @@ import { IoLogOut, IoLogOutOutline } from "react-icons/io5";
 import logo from "../Assets/logo.png";
 import "./NavigationBar.css";
 
-const NavigationBar = ({ profileImage }) => {
+const NavigationBar = ({ profileImage, cartCount = 0 }) => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [isLogoutHovered, setIsLogoutHovered] = useState(false);
@@ -49,8 +49,12 @@ const NavigationBar = ({ profileImage }) => {
           className="navbar-cart-icon"
           onClick={() => navigate("/cart")}
           title="Cart"
+          style={{ position: "relative" }}
         >
           <FaCartPlus />
+          {cartCount > 0 && (
+            <span className="cart-count-badge">{cartCount}</span>
+          )}
         </span>
         <img
           src={profileImage}

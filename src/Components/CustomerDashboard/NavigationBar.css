@@ -116,6 +116,19 @@
   color: #145f6a;
 }
 
+.cart-count-badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 7px;
+  font-size: 10px;
+  font-weight: bold;
+  z-index: 1;
+}
+
 .navbar-orders-btn {
   padding: 8px 18px;
   background: #007bff;
