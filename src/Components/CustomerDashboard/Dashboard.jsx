@@ -70,6 +70,7 @@ function fetchCartAndSetCount() {
             userId={user?.userId}
             onAddToCart={fetchCartAndSetCount}
             onBuyNow={onBuyNow}
+            
           />
         </div>
       </div>

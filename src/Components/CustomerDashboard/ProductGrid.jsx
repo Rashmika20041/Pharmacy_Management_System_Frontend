@@ -12,7 +12,7 @@ const ProductGrid = ({ products = [], onAddToCart, onBuyNow, userId }) => {
     <div className="product-grid">
       {safeProducts.map((product) => (
         <Product
-          key={product.id}
+          key={product.id || product.productId}
           product={product}
           userId={userId}
           onAddToCart={onAddToCart}

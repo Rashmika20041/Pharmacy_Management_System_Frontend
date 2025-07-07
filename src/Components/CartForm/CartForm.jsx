@@ -99,7 +99,7 @@ const CartForm = () => {
       <div className="page-background">
         <div className="cart-form">
           <div
-            className="profile-back-btn"
+            className="cart-back-btn"
             onClick={() => navigate(-1)}
             onMouseEnter={() => setIsBackHovered(true)}
             onMouseLeave={() => setIsBackHovered(false)}
@@ -216,7 +216,15 @@ const CartForm = () => {
             <b>Total:</b>{" "}
             <span className="total-value">${total.toFixed(2)}</span>
           </div>
-          <button className="checkout-btn">Checkout</button>
+          <button
+            className="checkout-btn"
+            onClick={() => {
+              localStorage.setItem("checkoutCart", JSON.stringify(cartItems));
+              navigate("/checkout");
+            }}
+          >
+            Checkout
+          </button>
         </div>
         {/* <pre>{JSON.stringify(cartItems, null, 2)}</pre> */}
       </div>

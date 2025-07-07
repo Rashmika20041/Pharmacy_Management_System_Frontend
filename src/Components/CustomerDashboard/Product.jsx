@@ -1,6 +1,7 @@
 import axios from "axios";
 import PropTypes from "prop-types";
 import "./Product.css";
+import { useNavigate } from "react-router-dom";
 
 const Product = ({
   product = {},
@@ -8,8 +9,8 @@ const Product = ({
   onBuyNow = () => {},
   userId,
 }) => {
-  const handleAddToCart = async () => {
-    if (!userId || !(product && product.id)) {
+    const handleAddToCart = async () => {
+    if (!userId || !(product && (product.id || product.productId))) {
       alert("User or product information missing.");
       return;
     }
@@ -19,11 +20,13 @@ const Product = ({
         {
           productId: product.productId,
           quantity: 1,
-        });
+        }
+      );
       onAddToCart(product);
     } catch (err) {
-      alert("Failed to add to cart.");
-    }
+  console.error(err);
+  alert("Failed to add to cart.");
+}
   };
 
   return (
@@ -54,7 +57,7 @@ Product.propTypes = {
   product: PropTypes.object,
   onAddToCart: PropTypes.func,
   onBuyNow: PropTypes.func,
-  userId: PropTypes.oneOfType([PropTypes.integer, PropTypes.number]),
+  userId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 export default Product;

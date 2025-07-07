@@ -1,0 +1,101 @@
+.order-history-background {
+    background: url('../Assets/dashboard.jpg') center/cover no-repeat;
+  min-height: 100vh;
+  width: 2000px;
+  display: flex;
+  justify-content: center;
+  background-attachment: fixed;
+  align-items: flex-start;
+  padding: 40px 0;
+}
+
+.order-container {
+  margin: 0px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.order-title {
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.order-table {
+  width: 1200px;
+  border-collapse: collapse;
+  background-color: white;  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-table thead {
+  background-color: #f8f8f8;
+  
+}
+
+.order-table th{
+  padding: 16px 12px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 16px;
+  height: 60px;
+  text-align: left;
+  vertical-align: top;
+}
+.order-table td {
+  padding: 16px 12px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 14px;
+  height: 100px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.order-table th {
+  color: #666;
+  font-weight: 600;
+}
+
+.order-table .bold {
+  font-weight: bold;
+  color: #222;
+}
+
+.product-link {
+  color: #007bff;
+  cursor: pointer;
+  display: inline-block;
+  white-space: pre-wrap;
+}
+
+.order-table-wrapper {
+  max-height: 400px; /* Adjust based on your row height; 4 rows + header */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Optional: scroll style (for better UI) */
+.order-table-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.order-table-wrapper::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 3px;
+}
+
+.order-table-wrapper::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+}
+
+.orderHistory-back-btn {
+  color: #050505;
+  font-size: 1.2rem;
+  margin-left: 70px;
+  margin-top: 40px;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

@@ -16,10 +16,10 @@ import Dashboard from "./Components/CustomerDashboard/Dashboard";
 import SearchResults from "./Components/CustomerDashboard/SearchResults";
 import { AuthProvider } from "./context/AuthProvider";
 import ProtectedRoute from "./Components/LoginForm/ProtectedRoute";
+import CheckoutForm from "./Components/CheckoutForm/CheckoutForm";
+import OrderHistory from "./Components/OrderHistory/OrderHistroy";
 
-<AuthProvider>
-  <App />
-</AuthProvider>;
+
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -67,6 +67,14 @@ function App() {
             <ProtectedRoute>
               <CartForm />
             </ProtectedRoute>
+          } />
+          <Route path="/checkout" element={
+            <ProtectedRoute>
+              <CheckoutForm />
+            </ProtectedRoute>
+          } />
+          <Route path="/orderHistory" element={
+              <OrderHistory />
           } />
           <Route path="*" element={<Navigate to="/user" replace={true} />} />
         </Routes>

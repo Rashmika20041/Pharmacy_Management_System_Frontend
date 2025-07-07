@@ -41,7 +41,7 @@ const NavigationBar = ({ profileImage, cartCount = 0 }) => {
       <div className="navbar-right">
         <button
           className="navbar-orders-btn"
-          onClick={() => navigate("/orders")}
+          onClick={() => navigate("/orderHistory")}
         >
           View Orders
         </button>
