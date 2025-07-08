@@ -73,7 +73,9 @@ function App() {
             </ProtectedRoute>
           } />
           <Route path="/orderHistory" element={
+            <ProtectedRoute>
               <OrderHistory />
+            </ProtectedRoute>
           } />
           <Route path="*" element={<Navigate to="/user" replace={true} />} />
         </Routes>

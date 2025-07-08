@@ -19,6 +19,14 @@
   box-shadow: 0 8px 24px rgba(0, 123, 255, 0.12);
 }
 
+.product-name{
+  font-size: 19px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
 .product-image {
   width: 180px;
   height: 180px;
