@@ -1,6 +1,8 @@
 import axios from "axios";
 import PropTypes from "prop-types";
 import "./Product.css";
+import BuyNowModal from "./BuyNowModal";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Product = ({
@@ -9,7 +11,10 @@ const Product = ({
   onBuyNow = () => {},
   userId,
 }) => {
-    const handleAddToCart = async () => {
+  const [showModal, setShowModal] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+
+  const handleAddToCart = async () => {
     if (!userId || !(product && (product.id || product.productId))) {
       alert("User or product information missing.");
       return;
@@ -24,9 +29,18 @@ const Product = ({
       );
       onAddToCart(product);
     } catch (err) {
-  console.error(err);
-  alert("Failed to add to cart.");
-}
+      console.error(err);
+      alert("Failed to add to cart.");
+    }
+  };
+
+  const handleBuyNow = () => {
+    setShowModal(true);
+  };
+
+  const handleProceedToCheckout = () => {
+    setShowModal(false);
+    window.location.href = `/checkout?productId=${product.productId}&quantity=${quantity}`;
   };
 
   return (
@@ -47,8 +61,17 @@ const Product = ({
       </div>
       <div className="product-buttons">
         <button onClick={handleAddToCart}>Add to Cart</button>
-        <button onClick={() => onBuyNow && onBuyNow(product)}>Buy Now</button>
+        <button onClick={handleBuyNow}>Buy Now</button>
       </div>
+      {showModal && (
+        <BuyNowModal
+          product={product}
+          quantity={quantity}
+          setQuantity={setQuantity}
+          onClose={() => setShowModal(false)}
+          onProceed={handleProceedToCheckout}
+        />
+      )}
     </div>
   );
 };

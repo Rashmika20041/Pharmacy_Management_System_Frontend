@@ -213,6 +213,7 @@ const ProfileView = () => {
                   name="userName"
                   value={user.userName || ""}
                   onChange={handleChange}
+                  readOnly
                 />
               </div>
               <div className="form-group">

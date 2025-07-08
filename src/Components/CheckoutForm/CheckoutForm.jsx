@@ -1,9 +1,9 @@
 import "./CheckoutForm.css";
 import React, { useState, useEffect } from "react";
 import { IoArrowBackCircleOutline, IoArrowBackCircle } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const checkoutForm = () => {
+const CheckoutForm = () => {
   const [user, setUser] = useState({
     name: "",
     address: "",
@@ -15,6 +15,7 @@ const checkoutForm = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [cartProducts, setCartProducts] = useState([]);
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +26,12 @@ const checkoutForm = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userId }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+        return res.json();
+      })
       .then((data) => {
         setUser({
           name: data.name || "",
@@ -33,6 +39,11 @@ const checkoutForm = () => {
           email: data.email || "",
           mobileNumber: data.mobileNumber || "",
         });
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("User fetch error:", err);
+        setError("Failed to load user data.");
         setLoading(false);
       });
   }, [navigate]);
@@ -43,48 +54,86 @@ const checkoutForm = () => {
   };
 
   useEffect(() => {
-    const storedCart = localStorage.getItem("checkoutCart");
-    if (storedCart) {
-      setCartProducts(JSON.parse(storedCart));
+    if (location.state?.mode === "buyNow" && location.state.product) {
+      setCartProducts([location.state.product]);
+    } else {
+      const storedCart = localStorage.getItem("checkoutCart");
+      if (storedCart) {
+        setCartProducts(JSON.parse(storedCart));
+      }
     }
-  }, []);
+  }, [location.state]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = {
-      name: user.name,
-      email: user.email,
-      address: user.address,
-      phone: user.mobileNumber,
-      total: `$${total}`,
-      cart: cartProducts
-        .map(
-          (item) =>
-            `${item.productName} (x${item.quantity}) - $${item.totalPrice}`
-        )
-        .join("\n"),
-    };
+    const userId = localStorage.getItem("userId");
+
+    if(!cartProducts || cartProducts.length === 0) {
+      alert("Your cart is empty. Please add items to your cart before checking out.");
+      return;
+    }
 
     try {
-      const response = await fetch("https://formspree.io/f/xblyebzo", {
+      const backendRes = await fetch(
+        `http://localhost:8081/api/pharmacy/order/checkout`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userId,
+            products: cartProducts.map((item) => ({
+              productId: item.productId || item.id,
+              quantity: item.quantity || 1,
+              totalPrice: item.totalPrice,
+            })),
+            totalPrice: total,
+            buyNow: location.state?.mode === "buyNow"
+          }),
+        }
+      );
+
+      if (!backendRes.ok) {
+        const errorText = await backendRes.text();
+        console.error("Backend Error:", errorText);
+        throw new Error(`❌ Checkout failed: ${errorText}`);
+      }
+
+      const formData = {
+        name: user.name,
+        email: user.email,
+        address: user.address,
+        phone: user.mobileNumber,
+        total: `$${total.toFixed(2)}`,
+        cart: cartProducts
+          .map((item) => {
+            const productName = item.productName || item.name || 'Unknown Product';
+            const quantity = item.quantity || 1;
+            const price = item.totalPrice || item.price || 0;
+            return `${productName} (x${quantity}) - $${price.toFixed(2)}`;
+          })
+          .join("\n"),
+      };
+
+      await fetch("https://formspree.io/f/xblyebzo", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
-        setShowSuccessPopup(true);
-        setTimeout(() => {
-          setShowSuccessPopup(false);
-          navigate("/userDashboard");
-        }, 2000);
+      setShowSuccessPopup(true);
+
+      if (location.state?.mode !== "buyNow") {
+        localStorage.removeItem("checkoutCart");
       }
+
+      setTimeout(() => {
+        setShowSuccessPopup(false);
+        navigate("/userDashboard");
+      }, 2000);
     } catch (err) {
-      console.error("Formspree error:", err);
-      alert("❌ Network error. Try again.");
+      console.error("Checkout error:", err);
+      alert(err.message || "❌ Something went wrong during checkout.");
     }
   };
 
@@ -139,6 +188,7 @@ const checkoutForm = () => {
                   name="name"
                   value={user.name}
                   onChange={handleChange}
+                  readOnly
                 />
               </div>
               <div className="checkout-form-group">
@@ -149,6 +199,7 @@ const checkoutForm = () => {
                   name="address"
                   value={user.address}
                   onChange={handleChange}
+                  readOnly
                 />
               </div>
             </div>
@@ -162,6 +213,7 @@ const checkoutForm = () => {
                   name="email"
                   value={user.email}
                   onChange={handleChange}
+                  readOnly
                 />
               </div>
               <div className="checkout-form-group">
@@ -172,6 +224,7 @@ const checkoutForm = () => {
                   name="mobileNumber"
                   value={user.mobileNumber}
                   onChange={handleChange}
+                  readOnly
                 />
               </div>
             </div>
@@ -207,4 +260,4 @@ const checkoutForm = () => {
   );
 };
 
-export default checkoutForm;
+export default CheckoutForm;

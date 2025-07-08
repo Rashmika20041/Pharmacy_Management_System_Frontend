@@ -20,7 +20,6 @@ import CheckoutForm from "./Components/CheckoutForm/CheckoutForm";
 import OrderHistory from "./Components/OrderHistory/OrderHistroy";
 
 
-
 function App() {
   const [cart, setCart] = useState([]);
   const handleAddToCart = (product) => setCart([...cart, product]);
