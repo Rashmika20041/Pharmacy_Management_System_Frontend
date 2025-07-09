@@ -246,7 +246,7 @@ const CheckoutForm = () => {
                   <img src={item.imageUrl} alt={item.productName} />
                   <div className="product-info">
                     <span className="name">{item.productName}</span>
-                    <span className="price">$ {item.totalPrice}</span>
+                    <span className="price">$ {item.totalPrice.toFixed(2)}</span>
                     <span className="qty">Qty: {item.quantity}</span>
                   </div>
                 </li>
