@@ -18,6 +18,7 @@ import { AuthProvider } from "./context/AuthProvider";
 import ProtectedRoute from "./Components/LoginForm/ProtectedRoute";
 import CheckoutForm from "./Components/CheckoutForm/CheckoutForm";
 import OrderHistory from "./Components/OrderHistory/OrderHistroy";
+import AdminDashboard from "./Components/AdminDashboard/AdminDashboard";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Routes>
           <Route path="/user" element={<UserLoginForm />} />
           <Route path="/admin" element={<AdminLoginForm />} />
+          <Route path="/adminDashboard" element={<AdminDashboard />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route
             path="/search"

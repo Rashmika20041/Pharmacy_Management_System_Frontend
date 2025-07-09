@@ -226,7 +226,6 @@ const CartForm = () => {
             Checkout
           </button>
         </div>
-        {/* <pre>{JSON.stringify(cartItems, null, 2)}</pre> */}
       </div>
     </div>
   );

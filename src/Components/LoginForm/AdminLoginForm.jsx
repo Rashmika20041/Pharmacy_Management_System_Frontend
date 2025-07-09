@@ -3,19 +3,23 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { GiMedicines } from "react-icons/gi";
+import { useNavigate } from "react-router-dom";
 
 const AdminLoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (username === "" || password === "") {
       setError("Username and password are required.");
     } else {
       setError("");
+      navigate("/adminDashboard");
     }
   };
 

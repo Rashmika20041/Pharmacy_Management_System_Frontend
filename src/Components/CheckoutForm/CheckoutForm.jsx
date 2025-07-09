@@ -253,7 +253,7 @@ const CheckoutForm = () => {
               ))}
             </ul>
           </div>
-          <div className="total-price">Total: ${total}</div>
+          <div className="total-price">Total: ${total.toFixed(2)}</div>
         </div>
       </div>
     </div>

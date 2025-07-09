@@ -1,0 +1,260 @@
+.page-center {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(120deg, #f0f2f5 60%, #e3f6f5 100%);
+  padding: 2rem 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.user-management {
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+} 
+
+.admin-form-container {
+  background: #fff;
+  padding: 2.25rem 2.5rem;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(60, 60, 90, 0.12);
+  margin-bottom: 2.5rem;
+  transition: box-shadow 0.3s;
+}
+
+.form-container:hover {
+  box-shadow: 0 12px 48px rgba(60, 60, 90, 0.15);
+}
+
+.form-container h2 {
+  margin-bottom: 2rem;
+  color: #22223b;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1.35rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #4a4e69;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1.5px solid #d5d7e3;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #f7f7fb;
+  transition: border 0.2s, background 0.2s;
+}
+
+.form-group input:focus {
+  border-color: #00bcd4;
+  background: #fff;
+  outline: none;
+} */
+
+.password-group {
+  position: relative;
+}
+
+.password-input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password-input-wrapper input {
+  padding-right: 2.7rem;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 0.9rem;
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: #6c757d;
+  background: transparent;
+  user-select: none;
+  border: none;
+  transition: color 0.2s;
+}
+
+.toggle-password:hover {
+  color: #00bcd4;
+} 
+
+
+ .submit-btn {
+  background: linear-gradient(90deg, #00bcd4 60%, #008ba3 100%);
+  color: white;
+  border: none;
+  padding: 0.82rem 2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.08rem;
+  font-weight: 600;
+  box-shadow: 0 2px 12px rgba(0, 188, 212, 0.09);
+  margin-top: 0.5rem;
+  transition: background 0.3s, transform 0.1s;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(90deg, #008ba3 60%, #00bcd4 100%);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.table-container {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(60, 60, 90, 0.11);
+  overflow-x: auto;
+  padding: 1.5rem 1rem;
+  box-sizing: border-box;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 1rem;
+}
+
+  th, td {
+  padding: 0.95rem 0.7rem;
+  text-align: center;
+  border-bottom: 1px solid #f0f1fa;
+}
+
+th {
+  background: #f8fafd;
+  color: #3f4254;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-top: 1px solid #e2e6ea;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+td {
+  color: #4a4e69;
+}
+
+td.actions {
+  min-width: 160px;
+}
+
+.actions {
+  display: flex;
+  gap: 0.6rem;
+} 
+
+.update-btn,
+.delete-btn {
+  padding: 0.53rem 1.15rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.98rem;
+  font-weight: 600;
+  transition: background 0.25s, transform 0.08s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.update-btn {
+  background: linear-gradient(90deg, #2196f3 60%, #1976d2 100%);
+  color: white;
+}
+
+.update-btn:hover {
+  background: linear-gradient(90deg, #1976d2 60%, #2196f3 100%);
+  transform: scale(1.05);
+}
+
+.delete-btn {
+  background: linear-gradient(90deg, #f44336 60%, #d32f2f 100%);
+  color: white;
+}
+
+.delete-btn:hover {
+  background: linear-gradient(90deg, #d32f2f 60%, #f44336 100%);
+  transform: scale(1.05);
+} 
+
+
+ @media (max-width: 900px) {
+  .user-management {
+    max-width: 100%;
+    padding: 0 1vw;
+  }
+
+  .form-container,
+  .table-container {
+    padding: 1.25rem 0.8rem;
+  }
+
+  th, td {
+    padding: 0.7rem 0.4rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-container,
+  .table-container {
+    border-radius: 8px;
+    padding: 1rem 0.4rem;
+  }
+
+  table, thead, tbody, th, td, tr {
+    display: block;
+  } 
+
+   th {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 1.2rem;
+    border-radius: 5px;
+    background: #f8fafd;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+    padding: 0.4rem;
+  }
+
+  td {
+    text-align: right;
+    padding: 0.7rem 0.3rem;
+    border-bottom: 1px solid #f0f1fa;
+    position: relative;
+  }
+
+  td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0.8rem;
+    font-weight: 700;
+    color: #3f4254;
+    text-transform: capitalize;
+  }
+
+  .actions {
+    justify-content: flex-end;
+    gap: 0.3rem;
+  }
+} 
