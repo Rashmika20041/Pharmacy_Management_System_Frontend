@@ -1,7 +1,6 @@
 import "./LoginForm.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 import { GiMedicines } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 
@@ -12,14 +11,35 @@ const AdminLoginForm = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (username === "" || password === "") {
       setError("Username and password are required.");
     } else {
       setError("");
-      navigate("/adminDashboard");
+      try {
+        const response = await fetch(
+          "http://localhost:8083/pharmacy/admin/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userName: username,
+              password: password,
+            }),
+          }
+        );
+        if (response.ok) {
+          navigate("/adminDashboard");
+        } else {
+          setError("Invalid username or password.");
+        }
+      } catch (err) {
+        setError("An error occurred. Please try again.");
+      }
     }
   };
 
