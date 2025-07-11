@@ -22,7 +22,7 @@ const DashboardContent = () => {
   const imageInputRef = useRef();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/pharmacy/inventory/medicines`)
+    fetch(`http://localhost:8080/pharmacy/inventory/medicines`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch(() => setProducts([]));
@@ -31,7 +31,7 @@ const DashboardContent = () => {
   // API: Add product
   const addProduct = async (inventory) => {
     const res = await fetch(
-      `http://localhost:8080/api/pharmacy/inventory/medicines`,
+      `http://localhost:8080/pharmacy/inventory/medicines`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -44,7 +44,7 @@ const DashboardContent = () => {
   // API: Update product
   const updateProduct = async (inventory) => {
     const res = await fetch(
-      `http://localhost:8080/api/pharmacy/inventory/medicines`,
+      `http://localhost:8080/pharmacy/inventory/medicines`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -57,7 +57,7 @@ const DashboardContent = () => {
   // API: Delete product
   const deleteProduct = async (productId) => {
     await fetch(
-      `http://localhost:8080/api/pharmacy/inventory/medicines/${productId}`,
+      `http://localhost:8080/pharmacy/inventory/medicines/${productId}`,
       {
         method: "DELETE",
       }

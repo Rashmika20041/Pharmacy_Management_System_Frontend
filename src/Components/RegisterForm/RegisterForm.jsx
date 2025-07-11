@@ -30,7 +30,7 @@ const RegisterForm = () => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8083/api/pharmacy/user/register", {
+      const response = await fetch("http://localhost:8083/pharmacy/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

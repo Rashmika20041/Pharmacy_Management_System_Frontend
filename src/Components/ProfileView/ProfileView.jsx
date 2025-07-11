@@ -18,7 +18,7 @@ const ProfileView = () => {
   useEffect(() => {
     const userId = localStorage.getItem("userId");
 
-    fetch("http://localhost:8083/api/pharmacy/user/profile", {
+    fetch("http://localhost:8083/pharmacy/user/profile", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userId }),
@@ -75,7 +75,7 @@ const ProfileView = () => {
 
   const handleSave = () => {
     setError(null);
-    fetch("http://localhost:8083/api/pharmacy/user/profile", {
+    fetch("http://localhost:8083/pharmacy/user/profile", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),

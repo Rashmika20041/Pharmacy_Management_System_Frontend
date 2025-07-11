@@ -19,7 +19,7 @@ const CartForm = () => {
     async function fetchCart() {
       try {
         const { data } = await axios.post(
-          "http://localhost:8081/api/pharmacy/order/viewCart",
+          "http://localhost:8081/pharmacy/order/viewCart",
           {
             userId: userId,
           }
@@ -45,7 +45,7 @@ const CartForm = () => {
     setTimeout(async () => {
       try {
         await axios.delete(
-          `http://localhost:8081/api/pharmacy/order/cart/delete/${productId}?userId=${userId}`
+          `http://localhost:8081/pharmacy/order/cart/delete/${productId}?userId=${userId}`
         );
         setCartItems((items) =>
           items.filter((item) => item.productId !== productId)
@@ -65,7 +65,7 @@ const CartForm = () => {
     }
     try {
       await axios.put(
-        `http://localhost:8081/api/pharmacy/order/cart/update/${productId}?quantity=${newQty}&userId=${userId}`
+        `http://localhost:8081/pharmacy/order/cart/update/${productId}?quantity=${newQty}&userId=${userId}`
       );
       setCartItems((items) =>
         items.map((item) =>

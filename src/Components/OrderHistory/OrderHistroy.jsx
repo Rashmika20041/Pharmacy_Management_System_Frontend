@@ -12,7 +12,7 @@ const OrderHistory = () => {
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    fetch(`http://localhost:8081/api/pharmacy/order/history?userId=${userId}`)
+    fetch(`http://localhost:8081/pharmacy/order/history?userId=${userId}`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch orders");
         return res.json();

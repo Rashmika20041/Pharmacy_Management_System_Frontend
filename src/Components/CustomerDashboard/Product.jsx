@@ -21,7 +21,7 @@ const Product = ({
     }
     try {
       await axios.post(
-        `http://localhost:8081/api/pharmacy/order/addCart?userId=${userId}`,
+        `http://localhost:8081/pharmacy/order/addCart?userId=${userId}`,
         {
           productId: product.productId,
           quantity: 1,

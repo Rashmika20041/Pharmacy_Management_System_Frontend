@@ -23,7 +23,7 @@ const SearchResults = () => {
     }
     setLoading(true);
     fetch(
-      `http://localhost:8080/api/pharmacy/inventory/medicines/search?productName=${encodeURIComponent(
+      `http://localhost:8080/pharmacy/inventory/medicines/search?productName=${encodeURIComponent(
         searchTerm
       )}`
     )

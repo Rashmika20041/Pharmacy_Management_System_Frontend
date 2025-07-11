@@ -9,7 +9,7 @@ const Dashboard = ({ onBuyNow }) => {
   const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/pharmacy/inventory/medicines")
+    fetch("http://localhost:8080/pharmacy/inventory/medicines")
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => {
@@ -21,7 +21,7 @@ const Dashboard = ({ onBuyNow }) => {
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     if (userId) {
-      fetch("http://localhost:8083/api/pharmacy/user/profile", {
+      fetch("http://localhost:8083/pharmacy/user/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
@@ -40,7 +40,7 @@ const Dashboard = ({ onBuyNow }) => {
 
 function fetchCartAndSetCount() {
    if (!user?.userId) return;
-  fetch("http://localhost:8081/api/pharmacy/order/viewCart", {
+  fetch("http://localhost:8081/pharmacy/order/viewCart", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ userId: user.userId }),

@@ -19,7 +19,7 @@ const UserLoginForm = () => {
       setError("");
       try {
         const response = await fetch(
-          "http://localhost:8083/api/pharmacy/user/login",
+          "http://localhost:8083/pharmacy/user/login",
           {
             method: "POST",
             headers: {
